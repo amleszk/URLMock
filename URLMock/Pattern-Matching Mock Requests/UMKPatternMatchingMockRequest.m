@@ -43,12 +43,10 @@
 
 - (instancetype)initWithURLPattern:(NSString *)URLPattern
 {
-    NSParameterAssert(URLPattern);
-
     self = [super init];
     if (self) {
         _URLPattern = [URLPattern copy];
-        _pattern = [[SOCPattern alloc] initWithString:_URLPattern];
+        _pattern = _URLPattern ? [[SOCPattern alloc] initWithString:_URLPattern] : nil;
     }
 
     return self;
@@ -75,7 +73,7 @@
     }
 
     NSString *URLString = [self canonicalURLStringExcludingQueryForURL:request.URL];
-    if (![self.pattern stringMatches:URLString]) {
+    if (self.pattern && ![self.pattern stringMatches:URLString]) {
         return NO;
     } else if (!self.requestMatchingBlock) {
         return YES;

@@ -77,7 +77,7 @@ typedef _Nonnull id<UMKMockURLResponder>(^UMKParameterizedResponderGenerationBlo
      related to query parameter ordering. If you need to examine the query parameters to determine whether to match a
      request, you can do so using a request-matching block.
  */
-@property (nonatomic, copy, readonly) NSString *URLPattern;
+@property (nonatomic, copy, readonly, nullable) NSString *URLPattern;
 
 /*!
  @abstract The HTTP methods that the instance matches.
@@ -90,7 +90,8 @@ typedef _Nonnull id<UMKMockURLResponder>(^UMKParameterizedResponderGenerationBlo
  @discussion This block generates a mock responder for a given URL request and URL pattern parameters. It may not 
      return nil. The return value of this block is what is returned by -responderForURLRequest:. 
  */
-@property (nonatomic, copy, nullable) UMKParameterizedResponderGenerationBlock responderGenerationBlock;
+@property (nonatomic, copy, nullable) UMKParameterizedResponderGenerationBlock
+responderGenerationBlock;
 
 /*!
  @abstract The instance’s request-matching block.
@@ -107,7 +108,7 @@ typedef _Nonnull id<UMKMockURLResponder>(^UMKParameterizedResponderGenerationBlo
 @property (nonatomic, copy, nullable) UMKParameterizedRequestMatchingBlock requestMatchingBlock;
 
 /*!
- @abstract ‑init is unavailable, because a mock request with a nil URL pattern is nonsensical.
+ @abstract ‑init is unavailable to remain explicit that no pattern matcher is to be used.
  */
 - (instancetype)init NS_UNAVAILABLE;
 
@@ -115,10 +116,11 @@ typedef _Nonnull id<UMKMockURLResponder>(^UMKParameterizedResponderGenerationBlo
  @abstract Initializes a newly allocated instance with the specified URL pattern and responder generation block.
  @discussion This is the class’s designated initializer.
 
- @param URLPattern The URL pattern for the new instance. May not be nil.
+ @param URLPattern The URL pattern for the new instance. If nil, the matcher will rely on the `requestMatchingBlock`
+     to determine if a match occurs. All requests will filter through this block callback instead
  @result An initialized pattern-matching mock request instance.
  */
-- (instancetype)initWithURLPattern:(NSString *)URLPattern NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithURLPattern:(nullable NSString *)URLPattern NS_DESIGNATED_INITIALIZER;
 
 @end
 
