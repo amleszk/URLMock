@@ -57,6 +57,11 @@ typedef NS_ENUM(NSInteger, UMKErrorCode) {
 @interface UMKMockURLProtocol : NSURLProtocol
 
 /*!
+ @abstract Returns YES if the protocol is currently enabled
+ */
++ (BOOL)isEnabled;
+
+/*!
  @abstract Enables mock responses by registering the mock protocol with the NSURL system.
  */
 + (void)enable;

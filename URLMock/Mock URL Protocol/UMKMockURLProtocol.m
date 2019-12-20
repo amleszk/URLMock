@@ -273,6 +273,12 @@ NS_ASSUME_NONNULL_END
     return settings;
 }
 
++ (BOOL)isEnabled
+{
+    @synchronized (self.settings) {
+        return self.settings.isEnabled;
+    }
+}
 
 + (void)enable
 {
