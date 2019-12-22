@@ -483,19 +483,20 @@ NS_ASSUME_NONNULL_END
 
 + (NSURL *)canonicalURLForURL:(NSURL *)URL
 {
-    // Always use the absolute URL
-    NSURL *canonicalURL = URL.absoluteURL;
-    NSString *query = canonicalURL.query;
-
-    // If there's a query, make sure the order of the parameters is consistent
-    if (query.length > 0) {
-        NSString *canonicalQueryString = [[NSDictionary umk_dictionaryWithURLEncodedParameterString:query] umk_URLEncodedParameterString];
-        NSString *URLString = [canonicalURL absoluteString];
-        canonicalURL = [NSURL URLWithString:[URLString stringByReplacingCharactersInRange:[URLString rangeOfString:query]
-                                                                               withString:canonicalQueryString]];
-    }
-
-    return canonicalURL;
+    return URL;
+//    // Always use the absolute URL
+//    NSURL *canonicalURL = URL.absoluteURL;
+//    NSString *query = canonicalURL.query;
+//
+//    // If there's a query, make sure the order of the parameters is consistent
+//    if (query.length > 0) {
+//        NSString *canonicalQueryString = [[NSDictionary umk_dictionaryWithURLEncodedParameterString:query] umk_URLEncodedParameterString];
+//        NSString *URLString = [canonicalURL absoluteString];
+//        canonicalURL = [NSURL URLWithString:[URLString stringByReplacingCharactersInRange:[URLString rangeOfString:query]
+//                                                                               withString:canonicalQueryString]];
+//    }
+//
+//    return canonicalURL;
 }
 
 @end
